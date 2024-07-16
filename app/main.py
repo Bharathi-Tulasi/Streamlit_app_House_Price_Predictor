@@ -11,42 +11,35 @@ def get_cleaned_data():
   return data
 
 
-def col1_input(input_slider_dict1, input_slider_dict2):
+def col1_input(input_dict1):
   
   st.subheader("Select your options")
   data = get_cleaned_data()
 
-  slider_labels1 = [("Area", "area"),
+  num_labels = [("Area", "area"),
+                   ("Number of Bedrooms", "bedrooms"),
                    ("Number of Bathrooms", "bathrooms"),
                    ("Number of stories", "stories"), 
-                   ]
-  slider_labels2 = [("Parking slots", "parking")]
+                   ("Parking slots", "parking")
+               ]
     
     
 
-  for label, key in slider_labels1:
-    input_slider_dict1[key] = st.number_input(
-        label,
-        min_value = 1,
-        max_value = data[key].max()
+  for key, value in num_labels:
+    input_dict1[key] = st.number_input(
+        key,
+        min_value = data[value].min(),
+        max_value = data[value].max()
       )
   
-  for label, key in slider_labels2:
-    input_slider_dict2[key] = st.number_input(
-        label,
-        min_value = 0,
-        max_value = data[key].max()
-      )
-  
-  input_dict1 = {**input_slider_dict1, **input_slider_dict2}
   return input_dict1
 
 
 def col2_input(input_dict2):
   st.subheader("Select your options")
-  data = get_cleaned_data()
+  
 
-  radio_labels = [("Mainroad", "mainroad_yes"), 
+  checkbox_labels = [("Mainroad", "mainroad_yes"), 
                     ("Guestroom", "guestroom_yes"), 
                     ("Basement", "basement_yes"), 
                     ("Hot water Heating", "hotwaterheating_yes"), 
@@ -57,10 +50,10 @@ def col2_input(input_dict2):
 
     
 
-  for label, key in radio_labels:
-    input_dict2[key] = st.checkbox(label)
-    input_dict2 = {keys: int(value) for keys, value in input_dict2.items()}
-
+  for key, value in checkbox_labels:
+    input_dict2[value] = st.checkbox(key)
+    input_dict2 = {key: int(values) for key, values in input_dict2.items()}
+    
   return input_dict2  
 
 
@@ -94,19 +87,18 @@ def main():
   col1, col2, col3  = st.columns([1, 1, 1])
    
   
-  input_slider_dict1 = {}
-  input_slider_dict2 = {}
+  
   input_dict1 = {}
   input_dict2 = {}
 
   with col1:
-    input1 = col1_input(input_slider_dict1, input_slider_dict2)
+    input1 = col1_input(input_dict1)
       
   
 
   with col2:
     input2 = col2_input(input_dict2)
-
+    
     
 
 

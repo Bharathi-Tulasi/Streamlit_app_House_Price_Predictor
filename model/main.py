@@ -3,7 +3,6 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import r2_score
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 import pickle
 
@@ -21,7 +20,7 @@ def get_cleaned_data():
 
 def create_model(data):
   # input and output
-  X = data.drop(["price", "bedrooms","mainroad_no", "guestroom_no", "basement_no", "airconditioning_no", "prefarea_no", "hotwaterheating_no", "furnishingstatus_semi-furnished", "furnishingstatus_unfurnished"], axis = 1)
+  X = data.drop(["price", "mainroad_no", "guestroom_no", "basement_no", "airconditioning_no", "prefarea_no", "hotwaterheating_no", "furnishingstatus_semi-furnished", "furnishingstatus_unfurnished"], axis = 1)
   y = data["price"]
   
 
